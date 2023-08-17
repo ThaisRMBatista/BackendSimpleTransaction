@@ -17,10 +17,17 @@ public class UserService {
     private UserRepository repository;
 
     public void validateTransaction(User sender, BigDecimal amount) throws Exception {
+        checkUserAuthorizationTransaction(sender);
+        checkInsufficientBalance(sender, amount);
+    }
+
+    public void checkUserAuthorizationTransaction(User sender) throws Exception {
         if (sender.getUserType() != UserType.COMMOM) {
             throw new Exception("Usuário do tipo Logista não está autorizado a realizar transação.");
         }
+    }
 
+    public void checkInsufficientBalance(User sender, BigDecimal amount) throws Exception {
         if (sender.getBalance().compareTo(amount) < 0) {
             throw new Exception("Saldo Insuficiente.");
         }

@@ -34,29 +34,49 @@ public class TransactionService {
         User receiver = this.userService.findUserById(transaction.receiverId());
 
         userService.validateTransaction(sender, transaction.value());
+        checkAuthorization(transaction, sender);
+        Transaction newTransaction = createNewTransaction(transaction, sender, receiver);
+//        sendNotificationTransaction(sender, receiver);
+        return newTransaction;
+    }
 
+    private void checkAuthorization(TransactionDTO transaction, User sender) throws Exception {
         boolean isAuthorized = this.authorizeTransaction(sender, transaction.value());
         if (!isAuthorized) {
             throw new Exception("Transação não autorizada");
         }
+    }
 
+    private Transaction createNewTransaction(TransactionDTO transaction, User sender, User receiver) {
         Transaction newTransaction = new Transaction();
         newTransaction.setAmount(transaction.value());
         newTransaction.setSender(sender);
         newTransaction.setReceiver(receiver);
         newTransaction.setTimestamp(LocalDateTime.now());
 
-        sender.setBalance(sender.getBalance().subtract(transaction.value()));
-        receiver.setBalance(receiver.getBalance().add(transaction.value()));
-
-        this.repository.save(newTransaction);
-        this.userService.saveUser(sender);
-        this.userService.saveUser(receiver);
-
-        this.notificationService.sendNotification(sender, "Transação realizada com Sucesso!");
-        this.notificationService.sendNotification(sender, "Transação recebida com Sucesso!");
-
+        saveTransaction(newTransaction);
+        updateBalanceSender(transaction, sender);
+        updateBalanceReceiver(transaction, receiver);
         return newTransaction;
+    }
+
+    private void updateBalanceReceiver(TransactionDTO transaction, User receiver) {
+        receiver.setBalance(receiver.getBalance().add(transaction.value()));
+        this.userService.saveUser(receiver);
+    }
+
+    private void updateBalanceSender(TransactionDTO transaction, User sender) {
+        sender.setBalance(sender.getBalance().subtract(transaction.value()));
+        this.userService.saveUser(sender);
+    }
+
+    private void saveTransaction(Transaction newTransaction) {
+        this.repository.save(newTransaction);
+    }
+
+    private void sendNotificationTransaction(User sender, User receiver) throws Exception {
+        this.notificationService.sendNotification(sender, "Transação realizada com Sucesso!");
+        this.notificationService.sendNotification(receiver, "Transação recebida com Sucesso!");
     }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
