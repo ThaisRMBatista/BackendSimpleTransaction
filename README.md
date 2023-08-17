@@ -27,7 +27,8 @@ $ git clone https://github.com/ThaisRMBatista/backend-simple-transaction.git
 The API provides the following endpoints:
 
 ```markdown
-<h3>Users</h3>
+
+- Users
 
 GET /users - Retrieve a list of all data users.
 
@@ -35,7 +36,7 @@ POST /users - Register a new user.
 
 Get /users/{id} - Find data user by id.
 
-<h3>Transactions</h3>
+- Transactions
 
 POST /transactions - Register a new transaction.
 ```
