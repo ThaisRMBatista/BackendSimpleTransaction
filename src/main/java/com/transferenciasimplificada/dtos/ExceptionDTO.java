@@ -1,21 +1,22 @@
 package com.transferenciasimplificada.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ExceptionDTO {
-    private final String statusCode;
     private final String message;
+    private final String statusCode;
 
-    public String statusCode() {
-        return statusCode;
+    public ExceptionDTO(String message, String statusCode) {
+        this.message = message;
+        this.statusCode = statusCode;
     }
 
     public String message() {
         return message;
+    }
+
+    public String statusCode() {
+        return statusCode;
     }
 }
