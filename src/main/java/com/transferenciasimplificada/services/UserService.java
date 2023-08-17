@@ -1,11 +1,10 @@
-package com.picpaysimplificado.services;
+package com.transferenciasimplificada.services;
 
-import com.picpaysimplificado.domain.user.User;
-import com.picpaysimplificado.domain.user.UserType;
-import com.picpaysimplificado.dtos.UserDTO;
-import com.picpaysimplificado.repositories.UserRepository;
+import com.transferenciasimplificada.domain.user.User;
+import com.transferenciasimplificada.domain.user.UserType;
+import com.transferenciasimplificada.dtos.UserDTO;
+import com.transferenciasimplificada.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,7 +17,7 @@ public class UserService {
     private UserRepository repository;
 
     public void validateTransaction(User sender, BigDecimal amount) throws Exception {
-        if (sender.getUserType() == UserType.MERCHANT) {
+        if (sender.getUserType() != UserType.COMMOM) {
             throw new Exception("Usuário do tipo Logista não está autorizado a realizar transação.");
         }
 

@@ -1,9 +1,9 @@
-package com.picpaysimplificado.services;
+package com.transferenciasimplificada.services;
 
-import com.picpaysimplificado.domain.transaction.Transaction;
-import com.picpaysimplificado.domain.user.User;
-import com.picpaysimplificado.dtos.TransactionDTO;
-import com.picpaysimplificado.repositories.TransactionRepository;
+import com.transferenciasimplificada.domain.transaction.Transaction;
+import com.transferenciasimplificada.domain.user.User;
+import com.transferenciasimplificada.dtos.TransactionDTO;
+import com.transferenciasimplificada.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +24,12 @@ public class TransactionService {
     protected TransactionRepository repository;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private RestTemplate restTemplate;
 
-    public void createTransaction(TransactionDTO transaction) throws Exception {
+    public Transaction createTransaction(TransactionDTO transaction) throws Exception {
         User sender = this.userService.findUserById(transaction.senderId());
         User receiver = this.userService.findUserById(transaction.receiverId());
 
@@ -49,10 +52,15 @@ public class TransactionService {
         this.repository.save(newTransaction);
         this.userService.saveUser(sender);
         this.userService.saveUser(receiver);
+
+        this.notificationService.sendNotification(sender, "Transação realizada com Sucesso!");
+        this.notificationService.sendNotification(sender, "Transação recebida com Sucesso!");
+
+        return newTransaction;
     }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
         ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6", Map.class);
-        return authorizationResponse.getStatusCode() == HttpStatus.OK && authorizationResponse.getBody().get("message") == "Authorized";
+        return authorizationResponse.getStatusCode() == HttpStatus.OK && authorizationResponse.getBody().get("message").equals("Autorizado");
     }
 }

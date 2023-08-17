@@ -1,4 +1,4 @@
-package com.picpaysimplificado.domain.user;
+package com.transferenciasimplificada.domain.user;
 
 public enum UserType {
     COMMOM,

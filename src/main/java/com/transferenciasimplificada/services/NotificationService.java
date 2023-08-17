@@ -1,7 +1,7 @@
-package com.picpaysimplificado.services;
+package com.transferenciasimplificada.services;
 
-import com.picpaysimplificado.domain.user.User;
-import com.picpaysimplificado.dtos.NotificationDTO;
+import com.transferenciasimplificada.domain.user.User;
+import com.transferenciasimplificada.dtos.NotificationDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

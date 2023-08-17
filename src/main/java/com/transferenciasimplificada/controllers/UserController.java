@@ -1,8 +1,8 @@
-package com.picpaysimplificado.controllers;
+package com.transferenciasimplificada.controllers;
 
-import com.picpaysimplificado.domain.user.User;
-import com.picpaysimplificado.dtos.UserDTO;
-import com.picpaysimplificado.services.UserService;
+import com.transferenciasimplificada.domain.user.User;
+import com.transferenciasimplificada.dtos.UserDTO;
+import com.transferenciasimplificada.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +27,11 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> allUsers = this.userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable("id") Long id) throws Exception {
+        User userById = this.userService.findUserById(id);
+        return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 }

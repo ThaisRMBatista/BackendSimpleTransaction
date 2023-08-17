@@ -1,6 +1,6 @@
-package com.picpaysimplificado.domain.user;
+package com.transferenciasimplificada.domain.user;
 
-import com.picpaysimplificado.dtos.UserDTO;
+import com.transferenciasimplificada.dtos.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 

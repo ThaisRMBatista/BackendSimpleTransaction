@@ -1,4 +1,4 @@
-package com.picpaysimplificado.dtos;
+package com.transferenciasimplificada.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

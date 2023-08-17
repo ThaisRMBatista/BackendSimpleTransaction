@@ -1,6 +1,6 @@
-package com.picpaysimplificado.dtos;
+package com.transferenciasimplificada.dtos;
 
-import com.picpaysimplificado.domain.user.UserType;
+import com.transferenciasimplificada.domain.user.UserType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

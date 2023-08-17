@@ -1,4 +1,4 @@
-package com.picpaysimplificado.infra;
+package com.transferenciasimplificada.infra;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
