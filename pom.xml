@@ -11,8 +11,9 @@
 	<groupId>com.picpaysimplificado</groupId>
 	<artifactId>picpaysimplificado</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>picpaysimplificado</name>
-	<description>Projeto Vaga Backend PicPay</description>
+	<packaging>war</packaging>
+	<name>tranferenciasimplificada</name>
+	<description>Projeto Transferencias Backend</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
